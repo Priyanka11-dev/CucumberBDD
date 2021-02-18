@@ -15,6 +15,8 @@ public class ObjectRepository {
 	@FindBy(xpath="//*[@id=\"right-side\"]/header/div/ohrm-navbar/nav/div/div/ul/li")
 	WebElement lbl_dashboard;
 	
+	
+	
 	WebDriver driver;
 	//Actions
 	public ObjectRepository(WebDriver driver) {

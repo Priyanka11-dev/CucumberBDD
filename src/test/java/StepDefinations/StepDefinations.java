@@ -5,7 +5,9 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+
 import CucumberBDD.CucumberBDD.ObjectRepository;
+import CucumberBDD.CucumberBDD.google;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
@@ -13,6 +15,7 @@ import io.cucumber.java.en.*;
 public class StepDefinations {
 	WebDriver driver;
 	ObjectRepository lp;
+	google gp;
 
 	@Before
 	public void setup() {
@@ -21,7 +24,7 @@ public class StepDefinations {
 		driver=new ChromeDriver();
 
 		lp=new ObjectRepository(driver);
-
+		gp=new google(driver);
 
 	}
 
@@ -48,7 +51,34 @@ public class StepDefinations {
 		String lbl=lp.lblPresent();
 		Assert.assertEquals(lbl, "Dashboard");
 	}
-	
+	//sec2
+
+	@Given("user is present on {string}")
+	public void user_is_present_on(String string) throws InterruptedException {
+
+		driver.get(string);
+
+		Thread.sleep(6000);
+		driver.manage().window().maximize();
+	}
+
+	@When("user enters {string} and hits enter")
+	public void user_enters_keyword_and_hits_enter(String keyword) throws InterruptedException {
+		gp.enterKeyword(keyword);
+
+
+
+		Thread.sleep(6000);
+	}
+
+	@Then("user can see search results")
+	public void user_can_see_search_results() {
+		String res=gp.resultsPresent();
+		Assert.assertTrue(res.contains("results"));
+		
+	}
+
+
 	@After
 	public void teardown() {
 		driver.quit();
